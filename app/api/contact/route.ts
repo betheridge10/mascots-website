@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,26 +9,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    const user = process.env.GMAIL_USER
-    const pass = process.env.GMAIL_APP_PASSWORD
-
-    if (!user || !pass) {
-      // Env vars not configured — log and return 500 with clear message
-      console.error('[contact] GMAIL_USER or GMAIL_APP_PASSWORD not set')
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      console.error('[contact] RESEND_API_KEY not set')
       return NextResponse.json({ error: 'Email not configured' }, { status: 500 })
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: { user, pass },
-    })
+    const resend = new Resend(apiKey)
 
-    await transporter.sendMail({
-      from: `"Mascots Website" <${user}>`,
-      to: 'mascotsportscards@gmail.com',
+    const { error } = await resend.emails.send({
+      from: 'Mascots Website <onboarding@resend.dev>',
+      to: 'blakeetheridg10@gmail.com',
       replyTo: email,
       subject: `Website Contact: ${subject || 'General Inquiry'} — ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
       html: `
         <div style="font-family:sans-serif;max-width:600px">
           <h2 style="color:#0033A0">New message from mascotsportscards.com</h2>
@@ -38,13 +31,19 @@ export async function POST(req: NextRequest) {
             <tr><td style="padding:8px;font-weight:bold">Subject</td><td style="padding:8px">${subject || '—'}</td></tr>
           </table>
           <div style="margin-top:16px;padding:16px;background:#f9f9f9;border-left:4px solid #0033A0;white-space:pre-wrap">${message}</div>
+          <p style="color:#999;font-size:12px;margin-top:24px">Sent via mascotsportscards.com contact form</p>
         </div>
       `,
     })
 
+    if (error) {
+      console.error('[contact] Resend error:', error)
+      return NextResponse.json({ error: 'Failed to send message' }, { status: 500 })
+    }
+
     return NextResponse.json({ ok: true })
   } catch (err) {
-    console.error('[contact] Send error:', err)
+    console.error('[contact] Unexpected error:', err)
     return NextResponse.json({ error: 'Failed to send message' }, { status: 500 })
   }
 }
