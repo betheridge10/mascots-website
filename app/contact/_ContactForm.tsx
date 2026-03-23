@@ -5,6 +5,7 @@ import { Send, CheckCircle } from 'lucide-react'
 
 export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
   const [values, setValues] = useState({ name: '', email: '', subject: '', message: '' })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -24,8 +25,9 @@ export default function ContactForm() {
     if (res.ok) {
       setStatus('sent')
     } else {
+      const data = await res.json().catch(() => ({}))
+      setErrorMsg(data.error || 'Unknown error')
       setStatus('idle')
-      alert('Something went wrong. Please email us directly at mascotsportscards@gmail.com')
     }
   }
 
@@ -146,6 +148,12 @@ export default function ContactForm() {
           </>
         )}
       </button>
+
+      {errorMsg && (
+        <p role="alert" style={{ color: 'var(--color-error, #c0392b)', fontSize: 'var(--text-sm)', marginTop: 'var(--space-3)' }}>
+          Error: {errorMsg}
+        </p>
+      )}
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
