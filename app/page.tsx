@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { getReviews } from '@/lib/getReviews'
 import {
   Circle,
   Layers,
@@ -137,66 +138,6 @@ const upcomingEvents = [
   },
 ]
 
-const testimonials = [
-  {
-    text: "Best hobby shop in the area by far. The selection is incredible and the staff actually knows their stuff. The Back Room is a great touch for the gaming community.",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: "James M.",
-    role: "Google Review",
-  },
-  {
-    text: "I drive 45 minutes just to shop here. The prices are fair, the inventory is fresh, and they always have what I'm looking for. Highly recommend to any collector.",
-    image: "https://randomuser.me/api/portraits/men/45.jpg",
-    name: "Tyler R.",
-    role: "Google Review",
-  },
-  {
-    text: "FNM here every week. Great atmosphere, fair play, and a store that actually supports its local TCG community. 5 stars every time.",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    name: "Sarah K.",
-    role: "Google Review",
-  },
-  {
-    text: "Found a Charizard I've been hunting for years at a fair price. Staff is knowledgeable and passionate — you can tell they're collectors too.",
-    image: "https://randomuser.me/api/portraits/men/12.jpg",
-    name: "Mike D.",
-    role: "Google Review",
-  },
-  {
-    text: "Picked up some autographed memorabilia here and it was all properly authenticated. Great variety and the staff helped me find exactly what I wanted.",
-    image: "https://randomuser.me/api/portraits/women/22.jpg",
-    name: "Amanda L.",
-    role: "Google Review",
-  },
-  {
-    text: "Amazing retro video game selection. Found games here I've been looking for for years. The trade-in prices are the best around too.",
-    image: "https://randomuser.me/api/portraits/men/56.jpg",
-    name: "Chris P.",
-    role: "Google Review",
-  },
-  {
-    text: "Took my son to his first Pokemon League Challenge here. The staff was welcoming, patient with beginners, and the Back Room is perfect for events.",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    name: "Rachel W.",
-    role: "Google Review",
-  },
-  {
-    text: "Bought several hobby boxes and the value is consistently great. They get new product fast and always have the latest sets on release day.",
-    image: "https://randomuser.me/api/portraits/men/78.jpg",
-    name: "Josh T.",
-    role: "Google Review",
-  },
-  {
-    text: "The MTG singles selection is legit. Commander staples, vintage pieces, competitive cards — all in one place. This is my go-to shop.",
-    image: "https://randomuser.me/api/portraits/men/91.jpg",
-    name: "Derek H.",
-    role: "Google Review",
-  },
-]
-
-const firstColumn  = testimonials.slice(0, 3)
-const secondColumn = testimonials.slice(3, 6)
-const thirdColumn  = testimonials.slice(6, 9)
 
 const marqueeItems = [
   { text: 'Est. 2018' },
@@ -208,7 +149,14 @@ const marqueeItems = [
   { text: '64+ Five-Star Google Reviews' },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
+  const reviews = await getReviews()
+  // Split reviews across 3 columns as evenly as possible
+  const third = Math.ceil(reviews.length / 3)
+  const firstColumn  = reviews.slice(0, third)
+  const secondColumn = reviews.slice(third, third * 2)
+  const thirdColumn  = reviews.slice(third * 2)
+
   return (
     <>
       <Navigation />
