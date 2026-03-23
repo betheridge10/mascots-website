@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { MapPin, Phone, Clock, Mail, ExternalLink, Facebook } from 'lucide-react'
 import Navigation from '../_components/Navigation'
+import Breadcrumbs from '../_components/Breadcrumbs'
 import ContactForm from './_ContactForm'
 import ScrollReveal from '../_components/ScrollReveal'
 
@@ -46,6 +47,7 @@ export default function ContactPage() {
         </div>
       </header>
 
+      <Breadcrumbs items={[{ label: 'Contact' }]} />
       <main id="main-content">
 
         <section className="section" id="contact-form">

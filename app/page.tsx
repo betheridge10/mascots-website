@@ -24,6 +24,7 @@ import ScrollReveal from './_components/ScrollReveal'
 import { TestimonialsColumn } from './_components/TestimonialsColumn'
 import { Marquee } from './_components/Marquee'
 import { HeroParallax } from './_components/HeroParallax'
+import NewsletterSignup from './_components/NewsletterSignup'
 
 export const metadata: Metadata = {
   title: 'Mascots Sports Cards & Collectibles | Tell City, Indiana',
@@ -602,6 +603,30 @@ export default function HomePage() {
               </p>
             </div>
 
+            {/* Google aggregate rating badge */}
+            <div className="google-rating-badge reveal reveal-delay-2">
+              <div className="google-rating-stars" aria-label="4.9 out of 5 stars">
+                {[1,2,3,4,5].map((s) => (
+                  <svg key={s} width="18" height="18" viewBox="0 0 24 24" fill="#FBBC04" aria-hidden="true">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                  </svg>
+                ))}
+              </div>
+              <div className="google-rating-text">
+                <span className="google-rating-score">4.9</span>
+                <span className="google-rating-count">64 Google Reviews</span>
+              </div>
+              <a
+                href="https://www.google.com/maps/search/Mascots+Sports+Cards+Tell+City+Indiana"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="google-rating-cta"
+                aria-label="Read all 64 Google reviews"
+              >
+                See all reviews ↗
+              </a>
+            </div>
+
             <div className="testimonials-wrapper" style={{ marginTop: 'var(--space-8)' }}>
               <TestimonialsColumn testimonials={firstColumn} duration={15} />
               <TestimonialsColumn testimonials={secondColumn} className="testimonials-col-2" duration={19} />
@@ -623,6 +648,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <NewsletterSignup />
 
         {/* ================================================================
             LOCATION CTA

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Phone, Mail, Clock, ExternalLink, ChevronRight } from 'lucide-react'
 import Navigation from '../_components/Navigation'
+import Breadcrumbs from '../_components/Breadcrumbs'
 import ScrollReveal from '../_components/ScrollReveal'
 
 export const metadata: Metadata = {
@@ -46,6 +47,7 @@ export default function FindUsPage() {
         </div>
       </header>
 
+      <Breadcrumbs items={[{ label: 'Find Us' }]} />
       <main id="main-content">
 
         {/* ================================================================

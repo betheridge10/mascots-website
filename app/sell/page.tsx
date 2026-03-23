@@ -20,6 +20,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react'
 import Navigation from '../_components/Navigation'
+import Breadcrumbs from '../_components/Breadcrumbs'
 import ScrollReveal from '../_components/ScrollReveal'
 
 export const metadata: Metadata = {
@@ -175,6 +176,7 @@ export default function SellPage() {
         </div>
       </header>
 
+      <Breadcrumbs items={[{ label: 'Sell Your Cards' }]} />
       <main id="main-content">
 
         {/* ================================================================

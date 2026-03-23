@@ -15,6 +15,7 @@ import {
   Trophy,
 } from 'lucide-react'
 import Navigation from '../_components/Navigation'
+import Breadcrumbs from '../_components/Breadcrumbs'
 import ScrollReveal from '../_components/ScrollReveal'
 
 export const metadata: Metadata = {
@@ -88,6 +89,7 @@ export default function EventsPage() {
         </div>
       </header>
 
+      <Breadcrumbs items={[{ label: 'Events' }]} />
       <main id="main-content">
 
         {/* ================================================================

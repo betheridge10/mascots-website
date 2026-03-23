@@ -12,6 +12,7 @@ import {
 import Navigation from '../_components/Navigation'
 import ShopClient from './_ShopClient'
 import ScrollReveal from '../_components/ScrollReveal'
+import Breadcrumbs from '../_components/Breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'Shop',
@@ -61,6 +62,7 @@ export default function ShopPage() {
         </div>
       </div>
 
+      <Breadcrumbs items={[{ label: 'Shop' }]} />
       <main id="main-content">
         <section className="section">
           <div className="container">

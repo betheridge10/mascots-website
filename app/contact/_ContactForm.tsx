@@ -14,9 +14,19 @@ export default function ContactForm() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setStatus('sending')
-    // Static site — simulate send
-    await new Promise((r) => setTimeout(r, 1000))
-    setStatus('sent')
+
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    })
+
+    if (res.ok) {
+      setStatus('sent')
+    } else {
+      setStatus('idle')
+      alert('Something went wrong. Please email us directly at mascotsportscards@gmail.com')
+    }
   }
 
   if (status === 'sent') {

@@ -2,6 +2,58 @@ import type { Metadata } from 'next'
 import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import Footer from './_components/Footer'
+import MobileCTABar from './_components/MobileCTABar'
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Mascots Sports Cards & Collectibles',
+  description: "Southern Indiana's premier hobby shop. Sports cards, Pokémon TCG, Magic: The Gathering, memorabilia, video games, toys, and more.",
+  url: 'https://mascotsportscards.com',
+  telephone: '+18127722873',
+  email: 'mascotsportscards@gmail.com',
+  image: 'https://mascotsportscards.com/images/exterior-shop-shot.jpg',
+  priceRange: '$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '705 Main Street',
+    addressLocality: 'Tell City',
+    addressRegion: 'IN',
+    postalCode: '47586',
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 37.9514,
+    longitude: -86.7618,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '11:00',
+      closes: '21:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Sunday'],
+      opens: '11:00',
+      closes: '15:00',
+    },
+  ],
+  sameAs: [
+    'https://www.facebook.com/Mascotsportscards/',
+    'https://www.ebay.com/str/mascotcollectibles',
+    'https://mascotsportscards.tcgplayerpro.com/',
+    'https://www.whatnot.com/s/bTqfi67P',
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '64',
+    bestRating: '5',
+  },
+}
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -75,8 +127,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${playfair.variable} ${dmSans.variable} ${jetbrains.variable}`}
     >
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
         {children}
         <Footer />
+        <MobileCTABar />
       </body>
     </html>
   )

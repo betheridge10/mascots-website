@@ -14,6 +14,7 @@ import {
   Layers,
 } from 'lucide-react'
 import Navigation from '../_components/Navigation'
+import Breadcrumbs from '../_components/Breadcrumbs'
 import ScrollReveal from '../_components/ScrollReveal'
 
 export const metadata: Metadata = {
@@ -82,6 +83,7 @@ export default function AboutPage() {
         </div>
       </header>
 
+      <Breadcrumbs items={[{ label: 'About Us' }]} />
       <main id="main-content">
 
         {/* ================================================================
@@ -240,7 +242,7 @@ export default function AboutPage() {
                       color: 'var(--color-text-primary)',
                       marginBottom: 'var(--space-1)',
                     }}>
-                      [OWNER NAME]
+                      Curtis &amp; Emily
                     </div>
                     <div style={{
                       fontFamily: 'var(--font-mono)',
@@ -250,7 +252,7 @@ export default function AboutPage() {
                       color: 'var(--color-accent)',
                       marginBottom: 'var(--space-4)',
                     }}>
-                      Owner &amp; Founder
+                      Owners &amp; Founders
                     </div>
                     <p className="section-body" style={{ marginTop: 0 }}>
                       [Personalized bio coming soon]
